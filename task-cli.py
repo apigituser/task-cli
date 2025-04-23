@@ -3,7 +3,7 @@ import os
 import json
 import datetime
 
-now = datetime.datetime.now()
+now = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M")
 
 def list_tasks():
     with open("tasks.json") as file:
@@ -26,8 +26,8 @@ def add_task():
     task_description = sys.argv[2]
     status = "todo"
     id = 1
-    createdAt = str(now.strftime("%d/%m/%Y, %H:%M"))
-    updatedAt = str(now.strftime("%d/%m/%Y, %H:%M"))
+    createdAt = str(now)
+    updatedAt = str(now)
     task = {id: {
                 "description": task_description, 
                 "status": status, 
@@ -74,7 +74,7 @@ def update_task():
         if value == None:
             print("Task not found")
             return 1
-        updatedAt = str(now.strftime("%d/%m/%Y, %H:%M"))
+        updatedAt = str(now)
         value['description'] = description
         value['updatedAt'] = updatedAt
     f = open("tasks.json","w")
@@ -91,7 +91,7 @@ def mark_task():
         if value == None:
             print("Task not found")
             return 1
-        updatedAt = str(now.strftime("%d/%m/%Y, %H:%M"))
+        updatedAt = str(now)
         value['updatedAt'] = updatedAt
         match mark:
             case "mark-done":
