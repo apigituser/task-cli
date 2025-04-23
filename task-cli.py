@@ -51,13 +51,13 @@ def add_task():
 def delete_task():
     id = str(sys.argv[2])
 
-    with open("tasks.json") as file:
+    with open("tasks.json","r+") as file:
         data:dict = json.load(file)
         if data.pop(id, None) == None:
             print("Task not found")
-    f = open("tasks.json", "w")
-    json.dump(data,f)
-    f.close()
+        file.seek(0)
+        file.truncate()
+        json.dump(data, file)
 
 def update_task():
     id = sys.argv[2]
