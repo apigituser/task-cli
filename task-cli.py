@@ -8,19 +8,13 @@ now = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M")
 def list_tasks():
     with open("tasks.json") as file:
         tasks = json.load(file)
+        
         for id,value in tasks.items():
-            status = tasks[id]['status']
+            status = value['status']
             if len(sys.argv) <= 2:
                 print(f"{id}. {value['description']}")
-            elif sys.argv[2] == 'done':
-                if status == 'done':
-                    print(f"{id}. {tasks[id]['description']}")
-            elif sys.argv[2] == 'todo':
-                if status == 'todo':
-                    print(f"{id}. {tasks[id]['description']}")
-            elif sys.argv[2] == 'in-progress':
-                if status == 'in-progress':
-                    print(f"{id}. {tasks[id]['description']}")
+            elif sys.argv[2] == status:
+                print(f"{id}. {value['description']}")
 
 def add_task():
     task_description = sys.argv[2]
