@@ -55,6 +55,7 @@ def delete_task():
         data:dict = json.load(file)
         if data.pop(id, None) == None:
             print("Task not found")
+            return 1
         file.seek(0)
         file.truncate()
         json.dump(data, file)
@@ -62,7 +63,7 @@ def delete_task():
 def update_task():
     id = sys.argv[2]
     description = sys.argv[3]
-    with open("tasks.json") as file:
+    with open("tasks.json", "r+") as file:
         data:dict = json.load(file)
         value = data.get(id, None)
         if value == None:
@@ -71,15 +72,15 @@ def update_task():
         updatedAt = str(now)
         value['description'] = description
         value['updatedAt'] = updatedAt
-    f = open("tasks.json","w")
-    json.dump(data,f)
-    f.close()
+        file.seek(0)
+        file.truncate()
+        json.dump(data, file)
 
 def mark_task():
     id = sys.argv[2]
     mark = sys.argv[1]
 
-    with open("tasks.json") as file:
+    with open("tasks.json", "r+") as file:
         data:dict = json.load(file)
         value = data.get(id, None)
         if value == None:
@@ -92,10 +93,9 @@ def mark_task():
                 value['status'] = "done"
             case "mark-in-progress":
                 value['status'] = "in-progress"
-
-    f = open("tasks.json","w")
-    json.dump(data,f)
-    f.close()
+        file.seek(0)
+        file.truncate()
+        json.dump(data,file)
 
 def main():
     if len(sys.argv) < 2:
