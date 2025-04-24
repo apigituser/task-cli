@@ -18,15 +18,13 @@ def list_tasks():
 
 def add_task():
     task_description = sys.argv[2]
-    id = 1
-    task = {id: {
+    task = {1: {
                 "description": task_description, 
                 "status": "todo", 
                 "createdAt": timestamp, 
                 "updatedAt": timestamp
                 }
             }
-    payload = task.get(id)
     
     if(os.stat("tasks.json").st_size == 0):
         with open("tasks.json", "w") as file:
@@ -35,7 +33,7 @@ def add_task():
         with open("tasks.json", "r+") as file:
             json_data = json.load(file)
             id = len(json_data) + 1
-            task = {id: payload}
+            task = {id: task.get(1)}
             json_data.update(task)
             file.seek(0)
             json.dump(json_data, file)
