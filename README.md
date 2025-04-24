@@ -55,8 +55,7 @@ You should know how to use the command line
    python task-cli.py update <id> "New Task"  // Updating task description
    python task-cli.py mark-done <id>          // Marking task as done
    python task-cli.py mark-in-progress <id>   // Marking task as in-progress
-
-6. Delete a Task
+4. Delete a Task
 
    ```
    python task-cli.py delete <id>
