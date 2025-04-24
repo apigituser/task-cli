@@ -27,13 +27,13 @@ def add_task():
                 }
             }
     payload = task.get(id)
-    check_file = os.stat("tasks.json").st_size
-    if(check_file == 0):
+    
+    if(os.stat("tasks.json").st_size == 0):
         with open("tasks.json", "w") as file:
             json.dump(task, file)
     else:
         with open("tasks.json", "r+") as file:
-            json_data:dict = json.load(file)
+            json_data = json.load(file)
             id = len(json_data) + 1
             task = {id: payload}
             json_data.update(task)
@@ -44,7 +44,7 @@ def delete_task():
     id = str(sys.argv[2])
 
     with open("tasks.json","r+") as file:
-        data:dict = json.load(file)
+        data = json.load(file)
         if data.pop(id, None) == None:
             print("Task not found")
             return 1
@@ -56,7 +56,7 @@ def update_task():
     id = sys.argv[2]
     description = sys.argv[3]
     with open("tasks.json", "r+") as file:
-        data:dict = json.load(file)
+        data = json.load(file)
         value = data.get(id, None)
         if value == None:
             print("Task not found")
@@ -72,7 +72,7 @@ def mark_task():
     mark = sys.argv[1]
 
     with open("tasks.json", "r+") as file:
-        data:dict = json.load(file)
+        data = json.load(file)
         value = data.get(id, None)
         if value == None:
             print("Task not found")
